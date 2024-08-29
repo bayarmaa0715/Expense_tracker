@@ -10,7 +10,9 @@ const createRecord = async (req, res) => {
 
   res.status(200).json({ messageRec: "success CREATE", record: data });
 };
-const updateRecord = () => {};
+const updateRecord = async (req, res) => {
+  const data = await sql`DELETE FROM records`;
+};
 const deleteRecord = () => {};
 
 module.exports = {
