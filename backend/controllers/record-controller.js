@@ -4,7 +4,9 @@ const getAllRecord = async (req, res) => {
   const data = await sql`SELECT * FROM records`;
   res.status(200).json({ messageRec: "success get Record", record: data });
 };
+
 const createRecord = async (req, res) => {
+  const { uid, cid, name, amount, transaction_type, description } = req.body;
   const data = await sql`INSERT INTO records(
 uid  ,
 cid  ,
@@ -14,11 +16,12 @@ transaction_type ,
 description) 
 VALUES
 (
-${name},
-uid=${uid},
+
+${uid},
 ${cid},
+${name},
 ${amount},
-${descriptio},
+${description},
 ${transaction_type},
 ${category_img}
 )`;

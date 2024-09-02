@@ -3,6 +3,7 @@ const { logger } = require("./middlewares/logger");
 const userRouter = require("./routes/user-route");
 const categoryRouter = require("./routes/category-route");
 const recordRouter = require("./routes/record-route");
+const authRouter = require("./routes/auth-route");
 const dotenv = require("dotenv"); //dotenv sangaa importoloj bn // npm i dotenv san suulgaj awaad port 8008 gesen dugaaraa nuudag san suulgaw Tgd backend dotoroo nuugdsan fil uusgene .env gesen nerte filoe uusgew. Ene nuugdmal file dotorh huwisagchiig dan tom usgeer bichne
 
 dotenv.config(); // zaawal config bicij bj .env filaas huwsagchiig server.js ruu importloj bn gesn ug ym
@@ -36,6 +37,7 @@ app.use("/categories", categoryRouter);
 //   res.status(200).json({ data: "data" });
 // });
 app.use("/records", recordRouter);
+app.use("/auth", authRouter);
 
 app.listen(PORT, () => {
   console.log("Server running at localhost:8008");
