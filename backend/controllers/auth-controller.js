@@ -3,11 +3,15 @@ const bcrypt = require("bcrypt"); // brypt san suulgana ene n hereglegchees irse
 const jwt = require("jsonwebtoken");
 
 const signUp = async (req, res) => {
-  const { email, name, password } = req.body;
-  const hashedPassword = bcrypt.hashSync(password, 10);
-  const data =
-    await sql`INSERT INTO users(email,name,password) VALUES(${email},${name},${hashedPassword})`;
-  res.status(200).json({ message: "success hashpaswword", data: data });
+  try {
+    const { email, name, password } = req.body;
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    const data =
+      await sql`INSERT INTO users(email,name,password) VALUES(${email},${name},${hashedPassword})`;
+    res.status(200).json({ message: "success hashpaswword", data: data });
+  } catch (error) {
+    res.status(401).json({ message: "Client error" });
+  }
 };
 const signIn = async (req, res) => {
   const { email, password } = req.body;
