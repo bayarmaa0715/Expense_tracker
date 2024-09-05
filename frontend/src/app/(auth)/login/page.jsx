@@ -1,22 +1,37 @@
 "use client";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const SignIn = () => {
+  const router = useRouter();
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
 
   const logIn = async () => {
-    const { email, password } = userData;
-    const response = await axios.post("http://localhost:8008/auth/signin", {
-      email: email,
-      password: password,
-    });
+    try {
+      const { email, password } = userData;
+      const response = await axios.post("http://localhost:8008/auth/signin", {
+        email: email,
+        password: password,
+      });
 
-    console.log("data", response.data);
+      if (response.status === 200) {
+        toast.success("Амжиттай нэвтэрлээ", { autoClose: 1000 });
+        const { token } = response.data;
+        localStorage.setItem("token", token);
+        router.push("/dashboard");
+      }
+    } catch (error) {
+      toast.error("Нууц үг эсвэл имэйл буруу байна. Дахин оролдоно уу.", {
+        autoClose: 1000,
+      });
+    }
   };
 
   return (
