@@ -4,12 +4,18 @@ const recordInfo = async (req, res) => {
   try {
     const [income, expense] =
       await sql`SELECT transaction_type, SUM(amount) FROM records GROUP BY transaction_type`;
-    res.status(200).json({
-      message: "success record info",
-      recordInfo: { income, expense },
-    });
+    res.status(200).json({ income, expense });
   } catch (error) {
     res.status(400).json({ message: "failded record info", error });
+  }
+};
+
+const balanceCard = async (req, res) => {
+  try {
+    // const userBalance = await sql`SELECT transaction_type.INC FROM records`;
+    res.status(200).json({ userBalance });
+  } catch (error) {
+    res.status(400).json({ message: "failded account balance", error });
   }
 };
 
@@ -63,4 +69,5 @@ module.exports = {
   updateRecord,
   deleteRecord,
   recordInfo,
+  balanceCard,
 };

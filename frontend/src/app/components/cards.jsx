@@ -5,18 +5,29 @@ import { FaArrowCircleDown } from "react-icons/fa";
 import axios from "axios";
 const Cards = () => {
   const [getInfo, setGetInfo] = useState(null);
+
   const getRecordInfoCard = async () => {
     try {
-      const response = await axios.get("http://localhost:8008/records/info");
+      const res = await axios.get("http://localhost:8008/records/info");
 
-      console.log("Records info back ees irsen", response);
-      setGetInfo(response.recordInfo);
+      console.log("Records info back ees irsen", res.data);
+      setGetInfo(res.data);
     } catch (error) {
       console.log("Records info татахад алдаа гарлаа");
     }
   };
+
+  const balance = async () => {
+    try {
+      const res = await axios.get("http://localhost:8008/records/balance");
+      console.log("Balance дансны үлдэгдэл", res.data);
+    } catch (error) {
+      console.log("Balance дансны үлдэгдэл татахад алдаа гарлаа");
+    }
+  };
   useEffect(() => {
     getRecordInfoCard();
+    balance();
   }, []);
   return (
     <div className="flex gap-3 p-5">
@@ -24,7 +35,7 @@ const Cards = () => {
         <img src="/images/logo.png" alt="" className="w-20 h-10" />
         <div>
           <h1>Cash</h1>
-          <p>{getInfo?.income}</p>
+          <p>{getInfo?.income.sum}</p>
         </div>
       </div>
       <div className="w-1/3 bg-white flex flex-col gap-4 p-6  rounded-md">
@@ -33,7 +44,7 @@ const Cards = () => {
           <h1 className="font-bold">Your income</h1>
         </div>
         <div>
-          <p className="text-2xl">${getInfo?.income}</p>
+          <p className="text-2xl">${getInfo?.income.sum}</p>
           <h1>Your income amount</h1>
         </div>
         <div className="flex gap-1 items-center">
@@ -48,7 +59,7 @@ const Cards = () => {
           <h1 className="font-bold">Total Expenses</h1>
         </div>
         <div>
-          <p className="text-2xl">${getInfo?.expense}</p>
+          <p className="text-2xl">${getInfo?.expense.sum}</p>
           <h1>Your expence amount</h1>
         </div>
         <div className="flex gap-1 items-center">

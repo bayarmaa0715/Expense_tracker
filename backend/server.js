@@ -40,5 +40,5 @@ app.use("/records", recordRouter);
 app.use("/auth", authRouter);
 
 app.listen(PORT, () => {
-  console.log("Server running at localhost:8008");
+  console.log("Сервер аслаа гиииооорлл:8008", PORT);
 });

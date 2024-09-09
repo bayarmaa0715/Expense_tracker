@@ -4,6 +4,7 @@ import { UserContext } from "../context/user-context";
 
 const Header = () => {
   const { user } = useContext(UserContext);
+
   return (
     <div className="flex justify-between px-5 py-3 bg-white">
       <div className="flex gap-4  items-center">
@@ -23,7 +24,7 @@ const Header = () => {
         <div className="flex justify-center items-center gap-4 ">
           <div>
             <img
-              src={name?.img}
+              src={user?.profile_img}
               alt="Зураг"
               className="rounded-full w-12 h-12 "
             />
@@ -32,6 +33,9 @@ const Header = () => {
             <p className="mb-1">{user?.name}</p>
             <p className="text-[#6B7280]">{user?.createdat}</p>
           </div>
+        </div>
+        <div>
+          <button className="btn btn-primary ">Sign out</button>
         </div>
       </div>
     </div>
