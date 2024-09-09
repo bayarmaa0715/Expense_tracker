@@ -46,12 +46,12 @@ const SignUp = () => {
         password,
       });
       if (response.status === 200) {
-        toast.success("🦄 Wow so easy!");
+        toast.success("Амжилттай бүртгэлээ");
         router.push("/login");
       }
     } catch (error) {
       console.error("There was an error signing up:", error);
-      toast.error("Failed to sign up. Please try again.");
+      toast.error("Нэвтрэхэд алдаа гарлаа");
     }
   };
 

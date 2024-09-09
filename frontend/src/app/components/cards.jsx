@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GoDotFill } from "react-icons/go";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { FaArrowCircleDown } from "react-icons/fa";
+import axios from "axios";
 const Cards = () => {
+  const [getInfo, setGetInfo] = useState(null);
+  const getRecordInfoCard = async () => {
+    try {
+      const response = await axios.get("http://localhost:8008/records/info");
+
+      console.log("Records info back ees irsen", response);
+      setGetInfo(response.recordInfo);
+    } catch (error) {
+      console.log("Records info татахад алдаа гарлаа");
+    }
+  };
+  useEffect(() => {
+    getRecordInfoCard();
+  }, []);
   return (
     <div className="flex gap-3 p-5">
       <div className="w-1/3 flex flex-col gap-9 p-6  rounded-md bg-gradient-to-b from-green-500 via-blue-500 to-pink-500">
         <img src="/images/logo.png" alt="" className="w-20 h-10" />
         <div>
           <h1>Cash</h1>
-          <p>$40,000,000</p>
+          <p>{getInfo?.income}</p>
         </div>
       </div>
       <div className="w-1/3 bg-white flex flex-col gap-4 p-6  rounded-md">
@@ -18,7 +33,7 @@ const Cards = () => {
           <h1 className="font-bold">Your income</h1>
         </div>
         <div>
-          <p className="text-2xl">$80,000,000</p>
+          <p className="text-2xl">${getInfo?.income}</p>
           <h1>Your income amount</h1>
         </div>
         <div className="flex gap-1 items-center">
@@ -33,7 +48,7 @@ const Cards = () => {
           <h1 className="font-bold">Total Expenses</h1>
         </div>
         <div>
-          <p className="text-2xl">$40,000,000</p>
+          <p className="text-2xl">${getInfo?.expense}</p>
           <h1>Your expence amount</h1>
         </div>
         <div className="flex gap-1 items-center">

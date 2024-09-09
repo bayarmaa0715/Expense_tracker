@@ -1,5 +1,6 @@
 import React from "react";
 import { BarChartHero } from "./Barchart";
+import DoughnurChart from "./Doughnut";
 
 const Graphic = () => {
   return (
@@ -10,7 +11,7 @@ const Graphic = () => {
       </div>
       <div className="w-1/2 bg-white rounded-md p-5">
         <h1 className="border-b-[1px] pb-2  font-bold">Income-Expense</h1>
-        <BarChartHero />
+        <DoughnurChart />
       </div>
     </div>
   );
