@@ -1,9 +1,26 @@
-import React, { useContext } from "react";
+"use client";
+import React, { useContext, useState } from "react";
 import Link from "next/link";
 import { UserContext } from "../context/user-context";
+import { useRouter } from "next/navigation";
+import Modal from "./modal";
 
 const Header = () => {
+  const router = useRouter();
+  const [showModal, setShowModal] = useState(false);
   const { user } = useContext(UserContext);
+  const signOut = () => {
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   return (
     <div className="flex justify-between px-5 py-3 bg-white">
@@ -19,8 +36,11 @@ const Header = () => {
       </div>
       <div className="flex gap-4">
         <div>
-          <button className="btn btn-primary ">+Records</button>
+          <button className="btn btn-primary " onClick={openModal}>
+            +Records
+          </button>
         </div>
+
         <div className="flex justify-center items-center gap-4 ">
           <div>
             <img
@@ -35,9 +55,12 @@ const Header = () => {
           </div>
         </div>
         <div>
-          <button className="btn btn-primary ">Sign out</button>
+          <button className="btn btn-primary" onClick={signOut}>
+            Sign out
+          </button>
         </div>
       </div>
+      <Modal showModal={showModal} hideModal={closeModal} />
     </div>
   );
 };

@@ -29,13 +29,16 @@ const Cards = () => {
     getRecordInfoCard();
     balance();
   }, []);
+  const balanceAcc = getInfo?.income.sum - getInfo?.expense.sum;
+
+  console.log("Too yu string uu", getInfo?.income.sum);
   return (
     <div className="flex gap-3 p-5">
       <div className="w-1/3 flex flex-col gap-9 p-6  rounded-md bg-gradient-to-b from-green-500 via-blue-500 to-pink-500">
         <img src="/images/logo.png" alt="" className="w-20 h-10" />
         <div>
           <h1>Cash</h1>
-          <p>{getInfo?.income.sum}</p>
+          <p>${balanceAcc}</p>
         </div>
       </div>
       <div className="w-1/3 bg-white flex flex-col gap-4 p-6  rounded-md">
