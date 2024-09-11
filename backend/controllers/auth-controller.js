@@ -19,7 +19,7 @@ const signIn = async (req, res) => {
   if (!user) {
     res.status(404).json({ message: "Burtgeltei hereglegch oldsongui" });
   } else {
-    const isCheck = bcrypt.compareSync(password, user.password);
+    const isCheck = bcrypt.compareSync(password, user.password); // pass check
     if (!isCheck) {
       res
         .status(404)

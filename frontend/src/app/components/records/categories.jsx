@@ -8,9 +8,39 @@ const Categories = () => {
       <input type="search" placeholder="Search" className="px-2" />
       <h1 className="font-bold text-lg">Types</h1>
       <ul className="list-disc pl-6">
-        <li>All</li>
-        <li>Income</li>
-        <li>Expense</li>
+        <div className="form-control">
+          <label className="label cursor-pointer flex justify-start gap-10">
+            <input
+              type="radio"
+              name="radio-10"
+              className="radio checked:bg-green-500"
+              defaultChecked
+            />
+            <span className="label-text">All</span>
+          </label>
+        </div>
+        <div className="form-control">
+          <label className="label cursor-pointer flex justify-start gap-10">
+            <input
+              type="radio"
+              name="radio-10"
+              className="radio checked:bg-green-500"
+              defaultChecked
+            />
+            <span className="label-text ">Income</span>
+          </label>
+        </div>
+        <div className="form-control">
+          <label className="label cursor-pointer flex justify-start gap-10">
+            <input
+              type="radio"
+              name="radio-10"
+              className="radio checked:bg-green-500"
+              defaultChecked
+            />
+            <span className="label-text">Expense</span>
+          </label>
+        </div>
       </ul>
       <h1 className="font-bold text-lg">Category</h1>
       <ul className="pl-3">

@@ -5,12 +5,13 @@ const {
   updateRecord,
   deleteRecord,
   recordInfo,
-  balanceCard,
+  circleChartInfo,
 } = require("../controllers/record-controller");
+const { auth } = require("../middlewares/auth");
 const router = Router();
 
-router.route("/info").get(recordInfo);
-router.route("/balance").get(balanceCard);
+router.route("/info").get(auth, recordInfo);
+router.route("/expenseChartInfo").get(auth, circleChartInfo);
 router.route("/").get(getAllRecord).post(createRecord);
 router.route("/:recordID").put(updateRecord).delete(deleteRecord);
 

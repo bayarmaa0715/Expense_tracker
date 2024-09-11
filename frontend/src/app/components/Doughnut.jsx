@@ -1,10 +1,45 @@
+"use client";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 
-const DoughnurChart = ({ categoryData }) => {
+const DoughnurChart = () => {
+  const [expData, setExpData] = useState();
+  const fetchExpenseData = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const eData = await axios.get(
+        "http://localhost:8008/records/expenseChartInfo",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (eData.status === 200) {
+        console.log(
+          "Backend ээс ирсэн орлого зарлагын дата",
+          eData.data?.eChartdata
+        );
+        setExpData(eData.data?.eChartdata);
+      }
+    } catch (error) {
+      console.log(
+        "Backend ээс ирсэн орлого зарлагын датаг авч садахгүй байна",
+        error
+      );
+    }
+  };
+  const chartNum = expData?.map((data) => data.sum);
+  const chartLebal = expData?.map((data) => data.name);
+
+  useEffect(() => {
+    fetchExpenseData();
+  }, []);
   const data2 = {
     datasets: [
       {
-        data: [10, 10, 20, 40, 20],
+        data: chartNum,
 
         backgroundColor: [
           "#1C64F2",
@@ -22,7 +57,7 @@ const DoughnurChart = ({ categoryData }) => {
         ],
       },
     ],
-    labels: ["Food", "Tech", "Taxi", "Health", "Car"],
+    labels: chartLebal,
   };
 
   const options2 = {

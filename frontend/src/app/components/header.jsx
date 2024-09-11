@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import Link from "next/link";
 import { UserContext } from "../context/user-context";
 import { useRouter } from "next/navigation";
-import Modal from "./modal";
+import Recordmodal from "./Recordmodal";
 
 const Header = () => {
   const router = useRouter();
@@ -60,7 +60,7 @@ const Header = () => {
           </button>
         </div>
       </div>
-      <Modal showModal={showModal} hideModal={closeModal} />
+      <Recordmodal showModal={showModal} hideModal={closeModal} />
     </div>
   );
 };

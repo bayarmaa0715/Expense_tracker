@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import { GoDotFill } from "react-icons/go";
 import { FaArrowCircleUp } from "react-icons/fa";
@@ -8,26 +9,23 @@ const Cards = () => {
 
   const getRecordInfoCard = async () => {
     try {
-      const res = await axios.get("http://localhost:8008/records/info");
-
-      console.log("Records info back ees irsen", res.data);
-      setGetInfo(res.data);
+      const token = localStorage.getItem("token");
+      const res = await axios.get("http://localhost:8008/records/info", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.status === 200) {
+        console.log("Records info back ees irsen", res.data);
+        setGetInfo(res.data);
+      }
     } catch (error) {
-      console.log("Records info татахад алдаа гарлаа");
+      console.log("Records info татахад алдаа гарлаа", error);
     }
   };
 
-  const balance = async () => {
-    try {
-      const res = await axios.get("http://localhost:8008/records/balance");
-      console.log("Balance дансны үлдэгдэл", res.data);
-    } catch (error) {
-      console.log("Balance дансны үлдэгдэл татахад алдаа гарлаа");
-    }
-  };
   useEffect(() => {
     getRecordInfoCard();
-    balance();
   }, []);
   const balanceAcc = getInfo?.income.sum - getInfo?.expense.sum;
 

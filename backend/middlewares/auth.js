@@ -4,8 +4,9 @@ const auth = (req, res, next) => {
   if (!req.headers.authorization) {
     res.status(401).json({ message: "Энэ үйлдэл хийхийг тулд нэвтэрнэ үү" });
   }
+  // Bearer lasdhfjdslfhlsdjfjsdlfsdfljdslfj;sdjflkasi
   const token = req.headers.authorization.split(" ")[1];
-  const user = jwt.verify(token, "JWT_TOKEN_PASS@123");
+  const user = jwt.verify(token, "JWT_TOKEN_PASS@123"); // {id: 123}
   req.user = user;
   next();
 };

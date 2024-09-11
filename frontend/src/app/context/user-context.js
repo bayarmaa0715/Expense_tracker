@@ -19,7 +19,7 @@ const UserProvider = ({ children }) => {
 
       if (response.status === 200) {
         setUser(response.data.user);
-        console.log("ирсэн дата харах", response);
+        console.log("user ирсэн дата харах", response);
       }
     } catch (error) {
       console.error(
@@ -32,7 +32,7 @@ const UserProvider = ({ children }) => {
     if (!user) {
     }
     fetchUserData();
-  }, [user]);
+  }, [user?.id]);
   return (
     <UserContext.Provider value={{ user, fetchUserData }}>
       {children}
