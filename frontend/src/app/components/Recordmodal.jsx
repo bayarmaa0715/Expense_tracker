@@ -1,5 +1,9 @@
 "use client";
+
+import { useState } from "react";
+
 const Recordmodal = ({ showModal, hideModal }) => {
+  const [active, setActive] = useState("EXP");
   return (
     <dialog open={showModal} onClose={hideModal} className="modal">
       <div className="modal-box max-w-2xl">
@@ -10,12 +14,18 @@ const Recordmodal = ({ showModal, hideModal }) => {
         </form>
         <h3 className="font-bold text-lg border-b-2">Add record</h3>
         <div className=" flex gap-5 mt-5 w-full">
-          <div className="flex flex-col gap-4 w-1/2">
-            <div className="flex gap-2 ">
-              <button className="bg-blue-300 rounded-md px-10 py-2">
+          <div className="flex flex-col gap-4 w-1/2 ">
+            <div className="flex bg-gray-100 rounded-full justify-between">
+              <button
+                className="focus:bg-blue-500 rounded-full px-12 py-2"
+                onClick={() => setActive("EXP")}
+              >
                 Expense
               </button>
-              <button className="bg-green-300 rounded-md px-10 py-2">
+              <button
+                className="focus:bg-green-500 focus:text-white rounded-full px-12 py-2"
+                onClick={() => setActive("INC")}
+              >
                 Income
               </button>
             </div>
@@ -47,7 +57,13 @@ const Recordmodal = ({ showModal, hideModal }) => {
                 <input type="time" className="input input-bordered" />
               </div>
             </div>
-            <button className="btn btn-primary">Add record</button>
+            <button
+              className={`btn ${
+                active === "EXP" ? "btn-primary" : "btn bg-success text-white"
+              } `}
+            >
+              Add record
+            </button>
           </div>
           <div className="w-1/2 flex flex-col gap-4">
             <p>Payee</p>

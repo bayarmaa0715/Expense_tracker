@@ -4,7 +4,7 @@ const recordInfo = async (req, res) => {
   try {
     const { id } = req.user;
     const [income, expense] =
-      await sql`SELECT transaction_type, SUM(amount) FROM records WHERE uid=${id} GROUP BY transaction_type `;
+      await sql`SELECT transaction_type, TO_CHAR(SUM(amount),', (comma)') FROM records WHERE uid=${id} GROUP BY transaction_type `;
     res.status(200).json({ income, expense });
   } catch (error) {
     res.status(400).json({ message: "Sql ээс дата гаа авч чадсангүй", error });

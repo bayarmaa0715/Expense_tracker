@@ -19,6 +19,7 @@ const createCategory = async (req, res) => {
 (${name},${description},${category_img},${createdAt})`;
   console.log("data", data);
   res
+
     .status(200)
     .json({ messageCat: "success create category", category: data });
 };
