@@ -39,6 +39,14 @@ app.use("/categories", categoryRouter);
 app.use("/records", recordRouter);
 app.use("/auth", authRouter);
 
+// _ gesen dooguur zuraas n ug huwsagchiig ashiglahgu gesen sanaa
+// back end iin hamgiin anhnii folderiig root folder gene backend file n root folder
+// folder dotoroo vercel.json file neegeerei
+//
+app.get("/", (_, res) => {
+  res.send("Welcome EXPENSE TRACKER API");
+});
+
 app.listen(PORT, () => {
   console.log("Сервер аслаа гиииооорлл:8008", PORT);
 });
