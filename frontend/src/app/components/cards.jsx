@@ -6,7 +6,7 @@ import { FaArrowCircleDown } from "react-icons/fa";
 import axios from "axios";
 const Cards = () => {
   const [getInfo, setGetInfo] = useState(null);
-
+  const [getMinus, setGetMinus] = useState(null);
   const getRecordInfoCard = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -16,27 +16,42 @@ const Cards = () => {
         },
       });
       if (res.status === 200) {
-        console.log("Records info back ees irsen", res.data);
+        console.log("Records info INC EXP back ees irsen", res.data);
         setGetInfo(res.data);
       }
     } catch (error) {
-      console.log("Records info татахад алдаа гарлаа", error);
+      console.log("Records info INC EXP  татахад алдаа гарлаа", error);
+    }
+  };
+  const getBalance = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.get("http://localhost:8008/records/balance", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.status === 200) {
+        console.log("Records info MINUS back ees irsen", res.data.minus);
+        setGetMinus(res.data.minus);
+      }
+    } catch (error) {
+      console.log("Records info MINUS татахад алдаа гарлаа", error);
     }
   };
 
   useEffect(() => {
     getRecordInfoCard();
+    getBalance();
   }, []);
-  const balanceAcc = getInfo?.income.sum - getInfo?.expense.sum;
 
-  console.log("Too yu string uu", getInfo?.income.sum);
   return (
     <div className="flex gap-3 p-5">
       <div className="w-1/3 flex flex-col gap-9 p-6  rounded-md bg-gradient-to-b from-green-500 via-blue-500 to-pink-500">
         <img src="/images/logo.png" alt="" className="w-20 h-10" />
         <div>
           <h1>Cash</h1>
-          <p>${balanceAcc}</p>
+          <p>${getMinus?.minus}</p>
         </div>
       </div>
       <div className="w-1/3 bg-white flex flex-col gap-4 p-6  rounded-md">

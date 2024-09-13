@@ -1,6 +1,7 @@
 import React from "react";
-import { BarChartHero } from "./Barchart";
+
 import DoughnurChart from "./Doughnut";
+import BarChartHero from "./Barchart";
 
 const Graphic = () => {
   return (

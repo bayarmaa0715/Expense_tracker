@@ -4,10 +4,25 @@ const recordInfo = async (req, res) => {
   try {
     const { id } = req.user;
     const [income, expense] =
-      await sql`SELECT transaction_type, TO_CHAR(SUM(amount),', (comma)') FROM records WHERE uid=${id} GROUP BY transaction_type `;
+      await sql`SELECT transaction_type, TO_CHAR((SUM(amount)),'999,999D99')as sum  FROM records WHERE uid=${id} GROUP BY transaction_type `;
     res.status(200).json({ income, expense });
   } catch (error) {
     res.status(400).json({ message: "Sql ээс дата гаа авч чадсангүй", error });
+  }
+};
+const balance = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const [minus] =
+      await sql`SELECT TO_CHAR((SUM(CASE WHEN transaction_type='INC' THEN amount ELSE 0 END )-SUM(CASE WHEN transaction_type='EXP' THEN amount ELSE 0 END)),'999,999D99') as minus
+      FROM records WHERE uid=${id} `;
+    res.status(200).json({ minus });
+    console.log("minus harah", minus);
+  } catch (error) {
+    res.status(400).json({
+      message: "Sql ээс орлого зарлагн зөррүү дата гаа авч чадсангүй",
+      error,
+    });
   }
 };
 
@@ -22,6 +37,25 @@ const circleChartInfo = async (req, res) => {
     res.status(200).json({ eChartdata });
   } catch (error) {
     res.status(400).json({ message: "Sql ээс дата гаа авч чадсангүй", error });
+  }
+};
+
+const barChartInfo = async (req, res) => {
+  try {
+    const { id } = req.user; // {id: 123}
+    const barData = await sql`
+      SELECT 
+      TO_CHAR(DATE_TRUNC('day',createdat),'Mon-DD') as date,
+      SUM(CASE WHEN transaction_type='EXP' THEN amount ELSE 0 END) as total_EXP ,
+      SUM(CASE WHEN transaction_type='INC' THEN amount ELSE 0 END)as total_INC
+      FROM records 
+      WHERE uid=${id}
+      GROUP BY DATE_TRUNC('day',createdat) `;
+    res.status(200).json({ barData });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ message: "Sql ээс Bar chartiin дата гаа авч чадсангүй", error });
   }
 };
 
@@ -76,4 +110,6 @@ module.exports = {
   deleteRecord,
   recordInfo,
   circleChartInfo,
+  balance,
+  barChartInfo,
 };
