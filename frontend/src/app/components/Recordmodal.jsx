@@ -4,6 +4,7 @@ import { useState } from "react";
 
 const Recordmodal = ({ showModal, hideModal }) => {
   const [active, setActive] = useState("EXP");
+
   return (
     <dialog open={showModal} onClose={hideModal} className="modal">
       <div className="modal-box max-w-2xl">
@@ -33,7 +34,7 @@ const Recordmodal = ({ showModal, hideModal }) => {
               <p>Amount</p>
               <input
                 type="number"
-                placeholder="₮ 000.0"
+                placeholder="$ 000.0"
                 className="input input-bordered w-full"
               />
             </div>

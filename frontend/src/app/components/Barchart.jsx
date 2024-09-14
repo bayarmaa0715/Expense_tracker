@@ -2,47 +2,44 @@
 
 import { BarChart } from "@tremor/react";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const BarChartHero = () => {
   const [barData, setBarData] = useState();
   const getBarChartInfo = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios("http://localhost:8008/records/barChartInfo", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setBarData();
-    } catch (error) {}
+      const res = await axios.get(
+        "http://localhost:8008/records/barChartInfo",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setBarData(res.data.barData);
+      console.log("Back end ees barchart iin dataa авч чадлаа", barData);
+    } catch (error) {
+      console.log(
+        "Back end ees barchart iin dataa авч чадсангүй ээ уйл",
+        error
+      );
+    }
   };
+  useEffect(() => {
+    getBarChartInfo();
+  }, []);
 
-  const chartdata = [
-    {
-      date: "Jan 23",
-      SolarPanels: 2890,
-      Inverters: 2338,
-    },
-    {
-      date: "Feb 23",
-      SolarPanels: 2756,
-      Inverters: 2103,
-    },
-    {
-      date: "Mar 23",
-      SolarPanels: 3322,
-      Inverters: 2194,
-    },
-  ];
+  console.log("BD=======>", barData);
+
   return (
     <BarChart
       className="h-60"
-      data={chartdata}
+      data={barData}
       index="date"
-      categories={["SolarPanels", "Inverters"]}
+      categories={["Зардал", "Орлого"]}
       valueFormatter={(number) =>
-        `${Intl.NumberFormat("us").format(number).toString()}`
+        `${Intl.NumberFormat("us").format(number).toString(",000")}`
       }
       onValueChange={(v) => console.log(v)}
     />

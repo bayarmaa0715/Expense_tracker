@@ -17,7 +17,7 @@ const createCategory = async (req, res) => {
   const data =
     await sql`INSERT INTO categories(name,description,category_img,createdAt) VALUES
 (${name},${description},${category_img},${createdAt})`;
-  console.log("data", data);
+  console.log("data", data);                       
   res
 
     .status(200)
@@ -31,7 +31,7 @@ const updateCategory = async (req, res) => {
 
   res
     .status(200)
-    .json({ messageCat: "success  update category", category: data });
+    .json({ messageCat: "success  update                                                                                         category", category: data });
 };
 
 const deleteCategory = async (req, res) => {

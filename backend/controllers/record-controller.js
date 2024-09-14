@@ -46,8 +46,8 @@ const barChartInfo = async (req, res) => {
     const barData = await sql`
       SELECT 
       TO_CHAR(DATE_TRUNC('day',createdat),'Mon-DD') as date,
-      SUM(CASE WHEN transaction_type='EXP' THEN amount ELSE 0 END) as total_EXP ,
-      SUM(CASE WHEN transaction_type='INC' THEN amount ELSE 0 END)as total_INC
+      SUM(CASE WHEN transaction_type='EXP' THEN amount ELSE 0 END)/100 as Зардал ,
+      SUM(CASE WHEN transaction_type='INC' THEN amount ELSE 0 END)/100 as Орлого
       FROM records 
       WHERE uid=${id}
       GROUP BY DATE_TRUNC('day',createdat) `;
@@ -60,8 +60,15 @@ const barChartInfo = async (req, res) => {
 };
 
 const getAllRecord = async (req, res) => {
-  const data = await sql`SELECT * FROM records`;
-  res.status(200).json({ messageRec: "success get Record", record: data });
+  try {
+    const { id } = req.user;
+    const data = await sql`SELECT * FROM records WHERE uid=${id}`;
+    res.status(200).json({ messageRec: "success get Record", record: data });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ message: "Sql ээс all record дата гаа авч чадсангүй", error });
+  }
 };
 
 const createRecord = async (req, res) => {

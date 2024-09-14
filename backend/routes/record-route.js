@@ -16,7 +16,7 @@ router.route("/balance").get(auth, balance);
 router.route("/info").get(auth, recordInfo);
 router.route("/expenseChartInfo").get(auth, circleChartInfo);
 router.route("/barChartInfo").get(auth, barChartInfo);
-router.route("/").get(getAllRecord).post(createRecord);
+router.route("/").get(auth, getAllRecord).post(createRecord);
 router.route("/:recordID").put(updateRecord).delete(deleteRecord);
 
 module.exports = router;

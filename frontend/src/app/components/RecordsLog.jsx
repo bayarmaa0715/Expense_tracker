@@ -1,7 +1,10 @@
-import React from "react";
+"use client";
+import React, { useContext } from "react";
 
 import { GoHomeFill } from "react-icons/go";
+import { DashboardContext } from "../context/dashboard-context";
 const RecordsLog = () => {
+  const { recordHistory } = useContext(DashboardContext);
   return (
     <div className="flex justify-between items-center bg-white rounded-md m-5 px-4 py-2">
       <div className="flex items-center justify-center gap-4 text-sm">

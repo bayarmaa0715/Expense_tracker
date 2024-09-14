@@ -1,24 +1,24 @@
 "use client";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IoEye } from "react-icons/io5";
 import Recordmodal from "../Recordmodal";
 import CategoryModal from "../CategoryModal";
+import { DashboardContext } from "@/app/context/dashboard-context";
 
 const Categories = () => {
   const [showModal, setShowModal] = useState(false);
   const [catShowModal, setCatShowModal] = useState(false);
+  const { category } = useContext(DashboardContext);
   const openModal = () => {
     setShowModal(true);
-
   };
 
   const closeModal = () => {
     setShowModal(false);
-
   };
 
-  const catOpenModal=()=>    setCatShowModal(true);
-  const catCloseModal=()=>    setCatShowModal(false);
+  const catOpenModal = () => setCatShowModal(true);
+  const catCloseModal = () => setCatShowModal(false);
 
   return (
     <div className="flex flex-col gap-6 w-1/4 m-6 p-4 bg-white rounded-lg">
@@ -65,13 +65,15 @@ const Categories = () => {
       </ul>
       <h1 className="font-bold text-lg">Category</h1>
       <ul className="pl-3">
-        <li className="flex items-center gap-2">
-          {" "}
-          <span>
-            <IoEye />
-          </span>{" "}
-          Food & Drinks
-        </li>
+        {category?.map((c) => (
+          <li className="flex items-center gap-2">
+            {" "}
+            <span>
+              <IoEye />
+            </span>
+            {c.name}
+          </li>
+        ))}
       </ul>
       <div>
         <button className=" btn btn-ghost text-lg p-0" onClick={catOpenModal}>
