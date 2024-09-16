@@ -26,15 +26,15 @@ const DashboardProvider = ({ children }) => {
   const getRecordHistory = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:8008/records", {
+      const res = await axios.get("http://localhost:8008/records/history", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setRecordHistory(res.data.record);
+      setRecordHistory(res.data.historyData);
       console.log(
         "Back end ees record history iin dataa авч чадлаа",
-        res.data.record
+        res.data.historyData
       );
     } catch (error) {
       console.log(

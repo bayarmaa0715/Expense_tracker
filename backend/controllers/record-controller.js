@@ -59,10 +59,25 @@ const barChartInfo = async (req, res) => {
   }
 };
 
+const recordExpHistory = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const historyData =
+      await sql`SELECT name, TO_CHAR(amount,'999,999D99') amount, createdat, transaction_type from records WHERE uid=${id} ORDER BY createdat DESC`;
+    res.status(200).json({ historyData });
+  } catch (error) {
+    res.status(400).json({
+      message: "Sql ээс record history дата гаа авч чадсангүй",
+      error,
+    });
+  }
+};
+
 const getAllRecord = async (req, res) => {
   try {
     const { id } = req.user;
-    const data = await sql`SELECT * FROM records WHERE uid=${id}`;
+    const data =
+      await sql`SELECT * FROM records WHERE uid=${id} ORDER BY createdat DESC`;
     res.status(200).json({ messageRec: "success get Record", record: data });
   } catch (error) {
     res
@@ -72,29 +87,22 @@ const getAllRecord = async (req, res) => {
 };
 
 const createRecord = async (req, res) => {
-  const { uid, cid, name, amount, transaction_type, description } = req.body;
-  const data = await sql`INSERT INTO records(
-uid  ,
-cid  ,
-name  ,
-amount ,
-transaction_type ,
-description) 
-VALUES
-(
+  console.log("ADD REC", req.body);
 
-${uid},
-${cid},
-${name},
-${amount},
-${description},
-${transaction_type},
-${category_img}
-)`;
+  try {
+    const { cid, name, amount, transaction_type, description } = req.body;
+    const { id } = req.user;
+    console.log("UID", id);
+    console.log("ADD REC", cid, name, amount, transaction_type, description);
+    const data =
+      await sql`INSERT INTO records(uid, cid , name , amount, transaction_type, description ) 
+                             VALUES(${id},${cid}, ${name},${amount},${transaction_type},${description})`;
 
-  res
-    .status(200)
-    .json({ messageRec: "success CREATE  records", createRecord: data });
+    res.status(200).json({ messageRec: "success CREATE  records" });
+  } catch (error) {
+    console.log("ERR", error);
+    res.status(400).json({ message: "New recored created unsuccessfully" });
+  }
 };
 
 const updateRecord = async (req, res) => {
@@ -119,4 +127,5 @@ module.exports = {
   circleChartInfo,
   balance,
   barChartInfo,
+  recordExpHistory,
 };

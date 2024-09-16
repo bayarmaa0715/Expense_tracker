@@ -30,7 +30,7 @@ const BarChartHero = () => {
     getBarChartInfo();
   }, []);
 
-  console.log("BD=======>", barData);
+  // console.log("BD=======>", barData);
 
   return (
     <BarChart

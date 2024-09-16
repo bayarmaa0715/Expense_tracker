@@ -1,9 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { DashboardContext } from "../context/dashboard-context";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Recordmodal = ({ showModal, hideModal }) => {
+  const { category } = useContext(DashboardContext);
   const [active, setActive] = useState("EXP");
+  const [recordFormData, setRecordFormData] = useState({
+    name: "",
+    amount: 0,
+    cid: "",
+    description: "",
+  });
+
+  const handleChangeForm = (event) => {
+    setRecordFormData({
+      ...recordFormData,
+      [event.target.name]: event.target.value,
+    });
+  };
+  console.log("ilgeeh dat====>", recordFormData);
+  const addRecordData = async () => {
+    const newData = { ...recordFormData, transaction_type: active };
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.post("http://localhost:8008/records", newData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("ilgeeh dat====>", newData);
+      if (res.status === 200) {
+        toast.success("Record амжилттай нэмлээ");
+      }
+    } catch (error) {
+      toast.error("Record нэмэхэд алдаа гарлаа");
+    }
+  };
 
   return (
     <dialog open={showModal} onClose={hideModal} className="modal">
@@ -31,21 +66,38 @@ const Recordmodal = ({ showModal, hideModal }) => {
               </button>
             </div>
             <div className="">
+              <p>Name</p>
+              <input
+                type="text"
+                placeholder="Name"
+                className="input input-bordered w-full"
+                name="name"
+                onChange={handleChangeForm}
+              />
+            </div>
+            <div className="">
               <p>Amount</p>
               <input
                 type="number"
                 placeholder="$ 000.0"
                 className="input input-bordered w-full"
+                name="amount"
+                onChange={handleChangeForm}
               />
             </div>
             <div>
               <p>Category</p>
-              <select className="border rounded-md px-3 py-3 w-full ">
+              <select
+                className="border rounded-md px-3 py-3 w-full "
+                name="cid"
+                onChange={handleChangeForm}
+              >
                 <option value="" disabled selected>
                   Choose
                 </option>
-                <option value="">Shopping</option>
-                <option value="">Food</option>
+                {category?.map((c) => {
+                  return <option value={c.id}>{c.name}</option>;
+                })}
               </select>
             </div>
             <div className="flex gap-2">
@@ -62,6 +114,7 @@ const Recordmodal = ({ showModal, hideModal }) => {
               className={`btn ${
                 active === "EXP" ? "btn-primary" : "btn bg-success text-white"
               } `}
+              onClick={addRecordData}
             >
               Add record
             </button>
