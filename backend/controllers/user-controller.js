@@ -4,7 +4,7 @@ const getCurrentUser = async (req, res) => {
   try {
     const { id } = req.user;
     const [data] =
-      await sql`SELECT email,name,password,profile_img, TO_CHAR(createdAt,'YYYY-MM-DD') as createdAt  FROM users WHERE id=${id}`;
+      await sql`SELECT email,name,password,profile_img, TO_CHAR(createdt,'YYYY-MM-DD') as createdAt  FROM users WHERE id=${id}`;
     res.status(200).json({ message: "success current user", user: data });
   } catch (error) {
     res.status(500).json({ message: "error" });

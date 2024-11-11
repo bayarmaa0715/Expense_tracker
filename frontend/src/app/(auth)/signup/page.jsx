@@ -14,23 +14,6 @@ const SignUp = () => {
     repassword: "",
   });
 
-  const [image, setImage] = useState(null);
-  const handleImageUpload = async () => {
-    if (!image) return;
-    const formData = new FormdData();
-    formData.append(file, image);
-    formData.append("upload_preset", "byurziwm");
-    try {
-      const response = await axios.post(
-        `https://api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/image/upload`,
-        formData
-      );
-      return response.data.secure_url;
-    } catch (error) {
-      console.error("Error uploading image:", error);
-    }
-  };
-
   const signUp = async () => {
     const { name, email, password, repassword } = userData;
 

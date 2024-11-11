@@ -6,9 +6,9 @@ const recordRouter = require("./routes/record-route");
 const authRouter = require("./routes/auth-route");
 const dotenv = require("dotenv"); //dotenv sangaa importoloj bn // npm i dotenv san suulgaj awaad port 8008 gesen dugaaraa nuudag san suulgaw Tgd backend dotoroo nuugdsan fil uusgene .env gesen nerte filoe uusgew. Ene nuugdmal file dotorh huwisagchiig dan tom usgeer bichne
 
-dotenv.config(); // zaawal config bicij bj .env filaas huwsagchiig server.js ruu importloj bn gesn ug ym
+dotenv.config(); // zaawal config bicij bj .env filaas huwsagchiig process.env file hiij ugnu 
 
-const PORT = process.env.PORT; // process gedeg function n zuwhun node js ajilaj bgaa uyd daraaahiig ajiluulah function
+const PORT = process.env.PORT; // process gedeg function n zuwhun node js ajilaj bgaa uyd daraaahiig ajiluulah function,huwsagchiig server.js ruu importloj bn gesn ug ym
 
 const cors = require("cors");
 
