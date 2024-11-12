@@ -45,8 +45,8 @@ const SignUp = () => {
 
   return (
     <div className="bg-blue-600">
-      <div className="bg-white w-1/2 h-screen ">
-        <div className=" flex flex-col justify-center text-center gap-3 p-72">
+      <div className="bg-white w-1/2 h-screen flex justify-center ">
+        <div className=" flex flex-col justify-center text-center gap-3">
           <div className="flex justify-center">
             {" "}
             <img src="/images/logo.png" alt="" width="100px" />
