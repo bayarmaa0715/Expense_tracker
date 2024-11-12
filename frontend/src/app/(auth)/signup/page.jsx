@@ -28,6 +28,11 @@ const SignUp = () => {
         email,
         password,
       });
+      if (response.status === 404) {
+        toast.success("Хэрэглэгч бүртгэлтэй байна");
+        router.push("/login");
+      }
+
       if (response.status === 200) {
         toast.success("Амжилттай бүртгэлээ");
         router.push("/login");

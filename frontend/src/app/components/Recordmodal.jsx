@@ -32,6 +32,7 @@ const Recordmodal = ({ showModal, hideModal }) => {
         },
       });
       console.log("ilgeeh dat====>", newData);
+
       if (res.status === 200) {
         toast.success("Record амжилттай нэмлээ");
       }

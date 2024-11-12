@@ -5,6 +5,10 @@ const jwt = require("jsonwebtoken");
 const signUp = async (req, res) => {
   try {
     const { email, name, password } = req.body;
+    const [user] = await sql`SELECT * FROM users WHERE email=${email}`;
+    if (user) {
+      res.status(404).json({ message: "Hereglegch burtgeltei bn" });
+    }
     const hashedPassword = bcrypt.hashSync(password, 10);
     const data =
       await sql`INSERT INTO users(email,name,password) VALUES(${email},${name},${hashedPassword})`;

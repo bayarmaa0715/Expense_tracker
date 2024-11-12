@@ -60,7 +60,7 @@ const Cards = () => {
           <h1 className="font-bold">Your income</h1>
         </div>
         <div>
-          <p className="text-2xl">${getInfo?.income.sum}</p>
+          <p className="text-2xl">${getInfo?.income?.sum}</p>
           <h1>Your income amount</h1>
         </div>
         <div className="flex gap-1 items-center">
@@ -75,7 +75,7 @@ const Cards = () => {
           <h1 className="font-bold">Total Expenses</h1>
         </div>
         <div>
-          <p className="text-2xl">${getInfo?.expense.sum}</p>
+          <p className="text-2xl">${getInfo?.expense?.sum}</p>
           <h1>Your expence amount</h1>
         </div>
         <div className="flex gap-1 items-center">

@@ -44,7 +44,7 @@ const Header = () => {
         <div className="flex justify-center items-center gap-4 ">
           <div>
             <img
-              src={user?.profile_img}
+              src="/images/11.webp"
               alt="Зураг"
               className="rounded-full w-12 h-12 "
             />

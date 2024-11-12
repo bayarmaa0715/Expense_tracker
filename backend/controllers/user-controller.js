@@ -3,17 +3,18 @@ const sql = require("../config/db");
 const getCurrentUser = async (req, res) => {
   try {
     const { id } = req.user;
+    console.log("id", id);
     const [data] =
-      await sql`SELECT email,name,password,profile_img, TO_CHAR(createdt,'YYYY-MM-DD') as createdAt  FROM users WHERE id=${id}`;
+      await sql`SELECT email,name,password,profile_img, TO_CHAR(createdat,'YYYY-MM-DD') as createdAt  FROM users WHERE id=${id}`;
     res.status(200).json({ message: "success current user", user: data });
   } catch (error) {
-    res.status(500).json({ message: "error" });
+    res.status(500).json({ message: " current user error" });
   }
 };
 
 const getAllUser = async (req, res) => {
   const data = await sql`SELECT * FROM users`;
-  console.log("data", data);
+  // console.log("data", data);
   res.status(200).json({ message: "success", user: data });
 };
 const createUser = async (req, res) => {
