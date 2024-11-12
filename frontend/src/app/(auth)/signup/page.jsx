@@ -45,48 +45,57 @@ const SignUp = () => {
 
   return (
     <div className="bg-blue-600">
-      <div className="w1/2 bg-blue-700"></div>
-      <div className="flex flex-col gap-3 bg-white w-1/2">
-        <img src="/images/logo.png" alt="" width="100px" />
-        <h1>Welcome Back</h1>
-        <p>Welcome back, Please enter your details</p>
-        <input
-          type="text"
-          placeholder="Name"
-          onChange={(e) => {
-            return setUserData({ ...userData, name: e.target.value });
-          }}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          onChange={(e) => {
-            return setUserData({ ...userData, email: e.target.value });
-          }}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => {
-            return setUserData({ ...userData, password: e.target.value });
-          }}
-        />
-        <input
-          type="password"
-          placeholder="Re-password"
-          onChange={(e) => {
-            return setUserData({ ...userData, repassword: e.target.value });
-          }}
-        />
-        <button className="btn btn-primary" onClick={signUp}>
-          Sign up
-        </button>
-        <p>
-          Already have account?{" "}
-          <Link href="/login" className="text-blue-500">
-            Login
-          </Link>
-        </p>
+      <div className="bg-white w-1/2 h-screen ">
+        <div className=" flex flex-col justify-center text-center gap-3 p-72">
+          <div className="flex justify-center">
+            {" "}
+            <img src="/images/logo.png" alt="" width="100px" />
+          </div>
+
+          <h1>Welcome Back</h1>
+          <p>Welcome back, Please enter your details</p>
+          <input
+            type="text"
+            placeholder="Name"
+            className="border rounded-md px-6 py-1"
+            onChange={(e) => {
+              return setUserData({ ...userData, name: e.target.value });
+            }}
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            className="border rounded-md px-6 py-1"
+            onChange={(e) => {
+              return setUserData({ ...userData, email: e.target.value });
+            }}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            className="border rounded-md px-6 py-1"
+            onChange={(e) => {
+              return setUserData({ ...userData, password: e.target.value });
+            }}
+          />
+          <input
+            type="password"
+            placeholder="Re-password"
+            className="border rounded-md px-6 py-1"
+            onChange={(e) => {
+              return setUserData({ ...userData, repassword: e.target.value });
+            }}
+          />
+          <button className="btn btn-primary" onClick={signUp}>
+            Sign up
+          </button>
+          <p>
+            Already have account?{" "}
+            <Link href="/login" className="text-blue-500">
+              Login
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

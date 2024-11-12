@@ -35,38 +35,46 @@ const SignIn = () => {
   };
 
   return (
-    <div className="bg-blue-600">
-      <div className="bg-white flex flex-col gap-3 w-1/2">
-        <img src="/images/logo.png" alt="" width="100px" />
-        <h1>Welcome Back</h1>
-        <p>Welcome back, Please enter your details</p>
-        <input
-          type="email"
-          name=""
-          id=""
-          placeholder="Email"
-          onChange={(event) => {
-            return setUserData({ ...userData, email: event.target.value });
-          }}
-        />
-        <input
-          type="password"
-          name=""
-          id=""
-          placeholder="Password"
-          onChange={(event) => {
-            return setUserData({ ...userData, password: event.target.value });
-          }}
-        />
-        <button className="btn btn-primary" onClick={logIn}>
-          Log in
-        </button>
-        <p>
-          Don't have acount?
-          <Link href="/signup" className="text-blue-500">
-            SignUp
-          </Link>{" "}
-        </p>
+    <div className="bg-blue-600  h-screen">
+      <div className="bg-white w-1/2 h-screen ">
+        <div className=" flex flex-col justify-center text-center gap-3 p-72">
+          <div className="flex justify-center">
+            {" "}
+            <img src="/images/logo.png" alt="" width="100px" />
+          </div>
+
+          <h1>Welcome Back</h1>
+          <p>Welcome back, Please enter your details</p>
+          <input
+            type="email"
+            name=""
+            id=""
+            placeholder="Email"
+            className="border rounded-md px-6 py-1"
+            onChange={(event) => {
+              return setUserData({ ...userData, email: event.target.value });
+            }}
+          />
+          <input
+            type="password"
+            name=""
+            id=""
+            placeholder="Password"
+            className="border rounded-md px-6 py-1"
+            onChange={(event) => {
+              return setUserData({ ...userData, password: event.target.value });
+            }}
+          />
+          <button className="btn btn-primary" onClick={logIn}>
+            Log in
+          </button>
+          <p>
+            Don't have acount?
+            <Link href="/signup" className="text-blue-500">
+              SignUp
+            </Link>{" "}
+          </p>
+        </div>
       </div>
       {/* <div className="w-1/2"></div> */}
     </div>
