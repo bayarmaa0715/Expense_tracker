@@ -9,7 +9,7 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const fetchUserData = async () => {
-    console.log("first1");
+
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get("http://localhost:8008/users/profile", {
@@ -17,10 +17,10 @@ const UserProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("first2");
+   
       if (response.status === 200) {
         setUser(response.data.user);
-        console.log("user ирсэн дата харах", response.data.user);
+     
       }
     } catch (error) {
       console.error(

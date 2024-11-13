@@ -5,7 +5,7 @@ import { DashboardContext } from "../context/dashboard-context";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const Recordmodal = ({ showModal, hideModal }) => {
+const Recordmodal = ({ showModal, hideModal, setShowModal }) => {
   const { category } = useContext(DashboardContext);
   const [active, setActive] = useState("EXP");
   const [recordFormData, setRecordFormData] = useState({
@@ -21,7 +21,7 @@ const Recordmodal = ({ showModal, hideModal }) => {
       [event.target.name]: event.target.value,
     });
   };
-  console.log("ilgeeh dat====>", recordFormData);
+
   const addRecordData = async () => {
     const newData = { ...recordFormData, transaction_type: active };
     try {
@@ -31,12 +31,13 @@ const Recordmodal = ({ showModal, hideModal }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("ilgeeh dat====>", newData);
 
       if (res.status === 200) {
+        hideModal();
         toast.success("Record амжилттай нэмлээ");
       }
     } catch (error) {
+      console.log("first", error);
       toast.error("Record нэмэхэд алдаа гарлаа");
     }
   };
@@ -93,11 +94,13 @@ const Recordmodal = ({ showModal, hideModal }) => {
                 name="cid"
                 onChange={handleChangeForm}
               >
-                <option value="" disabled selected>
-                  Choose
-                </option>
-                {category?.map((c) => {
-                  return <option value={c.id}>{c.name}</option>;
+                <option>Choose</option>
+                {category?.map((c, i) => {
+                  return (
+                    <option key={i} value={c.id}>
+                      {c.name}
+                    </option>
+                  );
                 })}
               </select>
             </div>

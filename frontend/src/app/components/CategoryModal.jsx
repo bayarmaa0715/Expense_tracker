@@ -1,7 +1,14 @@
 "use client";
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 
-const CategoryModal = ({ catShowModal, closeModal }) => {
+const CategoryModal = ({
+  catShowModal,
+  closeModal,
+  setNewCat,
+  addCategory,
+}) => {
   return (
     <dialog
       id="my_modal_3"
@@ -17,19 +24,20 @@ const CategoryModal = ({ catShowModal, closeModal }) => {
         </form>
         <h3 className="font-bold text-lg">Add category</h3>
         <div className="flex flex-col gap-5">
-          <div className="flex gap-5 w-full ">
-            <select name="" id="" className="w-1/3 px-5 py-2 border rounded-md">
-              <option value="" disabled selected></option>
-              <option value="">Зурөг1 </option>
-            </select>
-            <input
-              type="text"
-              placeholder="Category name "
-              className="w-2/3 px-5 py-2 border rounded-md"
-            />
-          </div>
+          <input
+            type="text"
+            placeholder="Category name "
+            className="w-full px-5 py-2 border rounded-md"
+            onChange={(e) => setNewCat(e.target.value)}
+          />
 
-          <button className="btn btn-success rounded-full"> Add</button>
+          <button
+            onClick={addCategory}
+            className="btn btn-success rounded-full"
+          >
+            {" "}
+            Add
+          </button>
         </div>
       </div>
     </dialog>

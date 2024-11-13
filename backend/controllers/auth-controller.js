@@ -18,22 +18,26 @@ const signUp = async (req, res) => {
   }
 };
 const signIn = async (req, res) => {
-  const { email, password } = req.body;
-  const [user] = await sql`SELECT * FROM users WHERE email=${email}`;
-  if (!user) {
-    res.status(404).json({ message: "Burtgeltei hereglegch oldsongui" });
-  } else {
-    const isCheck = bcrypt.compareSync(password, user.password); // pass check
-    if (!isCheck) {
-      res
-        .status(404)
-        .json({ message: "Hereglegchiin email eswel nuuts ug buruu baina" });
+  try {
+    const { email, password } = req.body;
+    const [user] = await sql`SELECT * FROM users WHERE email=${email}`;
+    if (!user) {
+      res.status(404).json({ message: "Burtgeltei hereglegch oldsongui" });
     } else {
-      const token = jwt.sign({ id: user.id }, "JWT_TOKEN_PASS@123", {
-        expiresIn: "1h",
-      }); //expiresIn neg tsagiin dotor ashiglah bolomjtoi
-      res.status(200).json({ message: "success password", token: token });
+      const isCheck = bcrypt.compareSync(password, user.password); // pass check
+      if (!isCheck) {
+        res
+          .status(404)
+          .json({ message: "Hereglegchiin email eswel nuuts ug buruu baina" });
+      } else {
+        const token = jwt.sign({ id: user.id }, "JWT_TOKEN_PASS@123", {
+          expiresIn: "12h",
+        }); //expiresIn neg tsagiin dotor ashiglah bolomjtoi
+        res.status(200).json({ message: "success password", token: token });
+      }
     }
+  } catch (error) {
+    res.status(404).json({ message: "newtrehed aldaa garlaa" });
   }
 };
 

@@ -63,7 +63,7 @@ const recordExpHistory = async (req, res) => {
   try {
     const { id } = req.user;
     const historyData =
-      await sql`SELECT name, TO_CHAR(amount,'999,999D99') amount, createdat, transaction_type from records WHERE uid=${id} ORDER BY createdat DESC`;
+      await sql`SELECT id,  name, TO_CHAR(amount,'999,999D99') amount, createdat, transaction_type from records WHERE uid=${id} ORDER BY createdat DESC`;
     res.status(200).json({ historyData });
   } catch (error) {
     res.status(400).json({
@@ -106,16 +106,24 @@ const createRecord = async (req, res) => {
 };
 
 const updateRecord = async (req, res) => {
-  const { recordID } = req.params;
-  const data =
-    await sql`UPDATE records SET amount=40000000 WHERE id=${recordID}`;
-  res.status(200).json({ message: "success update records", data: data });
+  try {
+    const { recordID } = req.params;
+    const data =
+      await sql`UPDATE records SET amount=40000000 WHERE id=${recordID}`;
+    res.status(200).json({ message: "success update records", data: data });
+  } catch (error) {
+    res.status(404).json({ message: "error update records" });
+  }
 };
 
 const deleteRecord = async (req, res) => {
-  const { recordID } = req.params;
-  const data = await sql`DELETE FROM records WHERE id=${recordID}`;
-  res.status(200).json({ message: "success delete record", data: data });
+  try {
+    const { recordID } = req.params;
+    const data = await sql`DELETE FROM records WHERE id=${recordID}`;
+    res.status(200).json({ message: "success delete record", data: data });
+  } catch (error) {
+    res.status(404).json({ message: "error update records" });
+  }
 };
 
 module.exports = {

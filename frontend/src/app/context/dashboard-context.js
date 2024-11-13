@@ -8,13 +8,14 @@ export const DashboardContext = createContext();
 const DashboardProvider = ({ children }) => {
   const [category, setCategory] = useState(null);
   const [recordHistory, setRecordHistory] = useState(null);
+  const [token, setToken] = useState("");
+  // const token = localStorage.getItem("token");
 
   const fetchCategoriesData = async () => {
     try {
       const response = await axios.get("http://localhost:8008/categories");
       if (response.status === 200) {
         setCategory(response.data.category);
-        console.log("Categories ирсэн дата харах", response.data.category);
       }
     } catch (error) {
       console.error(
@@ -23,6 +24,7 @@ const DashboardProvider = ({ children }) => {
       );
     }
   };
+
   const getRecordHistory = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -32,10 +34,6 @@ const DashboardProvider = ({ children }) => {
         },
       });
       setRecordHistory(res.data.historyData);
-      console.log(
-        "Back end ees record history iin dataa авч чадлаа",
-        res.data.historyData
-      );
     } catch (error) {
       console.log(
         "Back end ees  record history iin dataa авч чадсангүй ээ уйл",
@@ -45,9 +43,13 @@ const DashboardProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchCategoriesData();
-    getRecordHistory();
-  }, []);
+    if (token) {
+      fetchCategoriesData();
+      getRecordHistory();
+    } else {
+      setToken(localStorage.getItem("token"));
+    }
+  }, [token]);
   return (
     <DashboardContext.Provider
       value={{ category, fetchCategoriesData, getRecordHistory, recordHistory }}
